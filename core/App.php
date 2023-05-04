@@ -2,7 +2,8 @@
 
 namespace core;
 
-
+use src\Controllers\ProductController;
+use src\Controllers\UserController;
 
 class App
 {
@@ -10,10 +11,20 @@ class App
     public function run()
     {
 
-        $server = $_SERVER['REQUEST_URI'];
+        $uri = $_SERVER['REQUEST_URI'];
 
-        if ($server == '/') {
-            echo 'Bonjour';
+        if ($uri == '/') {
+            // $nctrl = new NewController;
+            // $nctrl->index();
+        } else if ($uri == '/products') {
+            // créer prdct ctrl
+            // appeler action index
+
+            $pctrl = new ProductController;
+            $pctrl->index();
+        } else if ($uri == '/user') {
+            $uctrl = new UserController;
+            $uctrl->index();
         }
     }
 }

@@ -8,10 +8,10 @@ use PDOException;
 class BaseModel
 {
 
-    private $host;
-    private $db_name;
-    private $username;
-    private $password;
+    private $host = "localhost";
+    private $db_name = "backoffice";
+    private $username = "root";
+    private $password = "";
     public $table;
     public $id;
     protected $_connexion;
@@ -46,6 +46,6 @@ class BaseModel
         $sql = "SELECT * FROM " . $this->table;
         $query = $this->_connexion->prepare($sql);
         $query->execute();
-        return $query->fetch();
+        return $query->fetchAll();
     }
 }

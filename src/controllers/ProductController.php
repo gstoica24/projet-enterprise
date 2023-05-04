@@ -1,9 +1,9 @@
 <?php
 
-namespace src\Controllers;
+namespace src\controllers;
 
 use core\BaseController;
-use src\Models\Product;
+use src\models\Product;
 
 class ProductController extends BaseController
 {
@@ -18,17 +18,17 @@ class ProductController extends BaseController
     // L'action index récupère les données du modèle et charge la vue
     public function index()
     {
-        echo "Ici nous aurons la liste des produits";
+        // echo "Ici nous aurons la liste des produits<br>";
 
         // Grâce aux méthodes du modèle, on récupère les données
         // que l'on stocke dans un tableau $produits
         // - - - Comment faire ?
+        $products = $this->model->getAll();
 
-        $produits = $this->model->getAll();
 
         // Et on charge la vue, qui aura accès au tableau "$produits"
         // - - - Utilisez soit require() soit Twig
 
-        $this->render("products.html.twig", array('produits' => $produits));
+        $this->render("products.html.twig", array('produits' => $products));
     }
 }
