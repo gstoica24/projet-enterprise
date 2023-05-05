@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Product
+{% endblock %}
+
+{% block content %}
+	<form action="/products" methode="post">
+		<div>
+			<input type="text" placeholder="{{product.nom}}">
+			<label for="nom">name</label>
+		</div>
+		<div>
+			<input type="number" placeholder="{{product.quantite}}">
+			<label for="quantite">quantite</label>
+		</div>
+		<div>
+			<input type="number" placeholder="{{product.prix}}">
+			<label for="prix">prix</label>
+		</div>
+
+	</form>
+{% endblock %}

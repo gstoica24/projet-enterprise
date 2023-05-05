@@ -31,4 +31,23 @@ class ProductController extends BaseController
 
         $this->render("products.html.twig", array('produits' => $products));
     }
+
+
+    public function addTen()
+    {
+        $this->model->updateStockA($_GET['id']);
+        header('Location: /products');
+    }
+    public function supTen()
+    {
+        $this->model->updateStockS($_GET['id']);
+        header('Location: /products');
+    }
+
+    public function product()
+    {
+        $this->render("product.html.twig", array('produits' => ""));
+        // $this->model->updateProduct($_GET['id']);
+        // header('Location: /product?id=' . $_GET["id"]);
+    }
 }

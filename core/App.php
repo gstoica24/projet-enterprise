@@ -11,8 +11,7 @@ class App
     public function run()
     {
 
-        $uri = $_SERVER['REQUEST_URI'];
-
+        $uri = strtok($_SERVER['REQUEST_URI'], '?');
         if ($uri == '/') {
             // $nctrl = new NewController;
             // $nctrl->index();
@@ -25,6 +24,17 @@ class App
         } else if ($uri == '/user') {
             $uctrl = new UserController;
             $uctrl->index();
+        } else if ($uri == '/products/restock+' && isset($_GET['id'])) {
+
+            $pctrl = new ProductController;
+            $pctrl->addTen();
+        } else if ($uri == '/products/restock-' && isset($_GET['id'])) {
+
+            $pctrl = new ProductController;
+            $pctrl->supTen();
+        } else if ($uri == '/product' && isset($_GET['id'])) {
+            $pctrl = new ProductController;
+            $pctrl->product();
         }
     }
 }

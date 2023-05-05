@@ -1,6 +1,64 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(77, 45, 45, 1) 37%,
+    rgba(77, 45, 45, 1) 100%
+  );
+}
+
 nav {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  height: 100vh;
+  width: 10%;
+  background-color: #ca2b41;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+section {
+  background-color: #ebebeb;
+  border-radius: 10px;
+  width: 90%;
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+}
+
+tr td:last-child {
+  text-align: center;
+}
+
+.table tbody tr,
+td {
+  background-color: #d9d9d9;
+}
+
+#titre {
+  font-size: 68px;
+  color: white;
+}
+
+input {
+  border-radius: 8px;
 }
