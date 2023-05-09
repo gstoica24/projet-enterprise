@@ -17,7 +17,7 @@ class User extends BaseModel
     public function updateUser($id, $fName, $lName, $solde)
     {
         try {
-            $sql = "UPDATE $this->table SET nom =':nom', prenom = ':prenom', solde = :solde WHERE id= $id";
+            $sql = "UPDATE $this->table SET nom =:nom, prenom = :prenom, solde = :solde WHERE id= $id";
             $query = $this->_connexion->prepare($sql);
             $query->bindparam(':nom', $fName);
             $query->bindparam(':prenom', $lName);
