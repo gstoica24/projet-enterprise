@@ -1,5 +1,35 @@
 {% extends "base.html.twig" %}
+
 {% block title %}Add Product
 {% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+	<div class="box">
+		<form class="formulaire" action="/addproduct/insert" method="post">
+
+			<input type="hidden" name="id" id="id" value="">
+			<div class="nom">
+				<label for="nom">name</label>
+				<input type="text" name="nom" id="nom" value="">
+
+
+			</div>
+			<div class="quantite">
+				<label for="quantite">quantite</label>
+				<input type="number" name="quantite" id="quantite" value="">
+
+			</div>
+			<div class="prix">
+				<label for="prix">prix</label>
+				<input type="number" name="prix" id="prix" value="">
+
+			</div>
+
+			<div>
+				<input type="submit">
+			</div>
+		</form>
+
+
+	</div>
+</div>{% endblock %}

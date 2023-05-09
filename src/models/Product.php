@@ -28,9 +28,18 @@ class Product extends BaseModel
         return $query->fetch();
     }
 
-    public function updateProduct($id)
+
+    public function updateProduct($id, $name, $quantity, $price)
     {
-        $sql = "INSERT INTO " . $this->table . "  WHERE id=" . $id;
+        $sql = "UPDATE $this->table SET nom ='$name', quantite = $quantity, prix = $price WHERE id= $id";
+        $query = $this->_connexion->prepare($sql);
+        $query->execute();
+        return ($query->rowcount() > 0);
+    }
+
+    public function insertProduct($id, $name, $quantity, $price)
+    {
+        $sql = "INSERT INTO $this->table (`nom`, `quantite`, `prix`) VALUES ('$name',$quantity,$price)";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetch();

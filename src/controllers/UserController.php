@@ -29,6 +29,18 @@ class UserController extends BaseController
         // Et on charge la vue, qui aura accès au tableau "$produits"
         // - - - Utilisez soit require() soit Twig
 
-        $this->render("users.html.twig", array('user' => $users));
+        $this->render("users.html.twig", array('users' => $users));
+    }
+
+    public function user()
+    {
+        $user = $this->model->getOne($_GET['id']);
+        $this->render("user.html.twig", array('user' => $user));
+    }
+
+    public function userModify()
+    {
+        $this->model->updateUser($_POST['id'], $_POST['nom'], $_POST['prenom'], $_POST['solde']);
+        header('Location: /users');
     }
 }

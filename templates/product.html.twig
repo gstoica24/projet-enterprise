@@ -4,19 +4,32 @@
 {% endblock %}
 
 {% block content %}
-	<form action="/products" methode="post">
-		<div>
-			<input type="text" placeholder="{{product.nom}}">
-			<label for="nom">name</label>
-		</div>
-		<div>
-			<input type="number" placeholder="{{product.quantite}}">
-			<label for="quantite">quantite</label>
-		</div>
-		<div>
-			<input type="number" placeholder="{{product.prix}}">
-			<label for="prix">prix</label>
-		</div>
+	<div class="box">
+		<form class="formulaire" action="/product/modifyDB" method="post">
 
-	</form>
-{% endblock %}
+			<input type="hidden" name="id" id="id" value="{{produit.id}}">
+			<div class="nom">
+				<label for="nom">name</label>
+				<input type="text" name="nom" id="nom" value="{{produit.nom}}">
+
+
+			</div>
+			<div class="quantite">
+				<label for="quantite">quantite</label>
+				<input type="number" name="quantite" id="quantite" value="{{produit.quantite}}">
+
+			</div>
+			<div class="prix">
+				<label for="prix">prix</label>
+				<input type="number" name="prix" id="prix" value="{{produit.prix}}">
+
+			</div>
+
+			<div>
+				<input type="submit">
+			</div>
+		</form>
+
+
+	</div>
+</div>{% endblock %}

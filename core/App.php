@@ -21,20 +21,33 @@ class App
 
             $pctrl = new ProductController;
             $pctrl->index();
-        } else if ($uri == '/user') {
+        } else if ($uri == '/users') {
             $uctrl = new UserController;
             $uctrl->index();
         } else if ($uri == '/products/restock+' && isset($_GET['id'])) {
-
             $pctrl = new ProductController;
             $pctrl->addTen();
         } else if ($uri == '/products/restock-' && isset($_GET['id'])) {
-
             $pctrl = new ProductController;
             $pctrl->supTen();
         } else if ($uri == '/product' && isset($_GET['id'])) {
             $pctrl = new ProductController;
             $pctrl->product();
+        } else if ($uri == '/product/modifyDB') {
+            $pctrl = new ProductController;
+            $pctrl->productModify();
+        } else if ($uri == '/addproduct') {
+            $pctrl = new ProductController;
+            $pctrl->productNew();
+        } else if ($uri == '/addproduct/insert') {
+            $pctrl = new ProductController;
+            $pctrl->productInsert();
+        } else if ($uri == '/user' && isset($_GET['id'])) {
+            $ucrtl = new UserController;
+            $ucrtl->user();
+        } else if ($uri == '/user/modifyUserDB') {
+            $uctrl = new UserController;
+            $uctrl->userModify();
         }
     }
 }

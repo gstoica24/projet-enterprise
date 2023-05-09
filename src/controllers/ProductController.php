@@ -46,8 +46,24 @@ class ProductController extends BaseController
 
     public function product()
     {
-        $this->render("product.html.twig", array('produits' => ""));
-        // $this->model->updateProduct($_GET['id']);
-        // header('Location: /product?id=' . $_GET["id"]);
+        $product = $this->model->getOne($_GET['id']);
+        $this->render("product.html.twig", array('produit' => $product));
+    }
+
+    public function productModify()
+    {
+        $this->model->updateProduct($_POST['id'], $_POST['nom'], $_POST['quantite'], $_POST['prix']);
+        header('Location: /products');
+    }
+
+    public function productNew()
+    {
+        $this->render("addproduct.html.twig", array('produit' => ""));
+    }
+
+    public function productInsert()
+    {
+        $this->model->insertProduct($_POST['id'], $_POST['nom'], $_POST['quantite'], $_POST['prix']);
+        header('Location: /products');
     }
 }

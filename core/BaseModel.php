@@ -32,9 +32,9 @@ class BaseModel
         }
     }
 
-    public function getOne()
+    public function getOne($id)
     {
-        $sql = "SELECT * FROM " . $this->table . " WHERE id=" . $this->id;
+        $sql = "SELECT * FROM " . $this->table . " WHERE id=" . $id;
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetch();
