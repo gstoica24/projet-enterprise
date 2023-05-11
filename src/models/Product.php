@@ -3,6 +3,7 @@
 namespace src\models;
 
 use core\BaseModel;
+use PDOException;
 
 class Product extends BaseModel
 {
@@ -15,33 +16,68 @@ class Product extends BaseModel
 
     public function updateStockA($id)
     {
-        $sql = "UPDATE " . $this->table . " SET quantite = quantite + 10 WHERE id=" . $id;
-        $query = $this->_connexion->prepare($sql);
-        $query->execute();
-        return $query->fetch();
+        try {
+            $sql = "UPDATE " . $this->table . " SET quantite = quantite + 10 WHERE id=" . $id;
+            $query = $this->_connexion->prepare($sql);
+            $query->execute();
+            return $query->fetch();
+        } catch (PDOException $exception) {
+            echo "Erreur de connexion : " . $exception->getMessage();
+        }
     }
     public function updateStockS($id)
     {
-        $sql = "UPDATE " . $this->table . " SET quantite = quantite - 10 WHERE id=" . $id;
-        $query = $this->_connexion->prepare($sql);
-        $query->execute();
-        return $query->fetch();
+        try {
+            $sql = "UPDATE " . $this->table . " SET quantite = quantite - 10 WHERE id=" . $id;
+            $query = $this->_connexion->prepare($sql);
+            $query->execute();
+            return $query->fetch();
+        } catch (PDOException $exception) {
+            echo "Erreur de connexion : " . $exception->getMessage();
+        }
+    }
+
+    public function productDelete($id)
+
+    {
+        try {
+            $sql = "DELETE FROM " . $this->table . " WHERE id=" . $id;
+            $query = $this->_connexion->prepare($sql);
+            $query->execute();
+            return $query->fetch();
+        } catch (PDOException $exception) {
+            echo "Erreur de connexion : " . $exception->getMessage();
+        }
     }
 
 
     public function updateProduct($id, $name, $quantity, $price)
     {
-        $sql = "UPDATE $this->table SET nom ='$name', quantite = $quantity, prix = $price WHERE id= $id";
-        $query = $this->_connexion->prepare($sql);
-        $query->execute();
-        return ($query->rowcount() > 0);
+        try {
+            $sql = "UPDATE $this->table SET nom = :nom, quantite = :quantite, prix = :prix WHERE id= $id";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindparam(':nom', $name);
+            $query->bindparam(':quantite', $quantity);
+            $query->bindparam(':prix', $price);
+            $query->execute();
+            return ($query->rowcount() > 0);
+        } catch (PDOException $exception) {
+            echo "Erreur de connexion : " . $exception->getMessage();
+        }
     }
 
-    public function insertProduct($id, $name, $quantity, $price)
+    public function insertProduct($name, $quantity, $price)
     {
-        $sql = "INSERT INTO $this->table (`nom`, `quantite`, `prix`) VALUES ('$name',$quantity,$price)";
-        $query = $this->_connexion->prepare($sql);
-        $query->execute();
-        return $query->fetch();
+        try {
+            $sql = "INSERT INTO $this->table (`nom`, `quantite`, `prix`) VALUES (:nom,:quantite,:prix)";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindparam(':nom', $name);
+            $query->bindparam(':quantite', $quantity);
+            $query->bindparam(':prix', $price);
+            $query->execute();
+            return $query->fetch();
+        } catch (PDOException $exception) {
+            echo "Erreur de connexion : " . $exception->getMessage();
+        }
     }
 }

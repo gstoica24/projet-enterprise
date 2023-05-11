@@ -43,7 +43,9 @@
 						{% endif %}
 					</td>
 					<td>
-						<button type="button" class="btn btn-danger">Remove</button>
+						<a href="{% if user.is_admin == 0 %} /user/delete?id={{user.id}} {% endif %}">
+							<button type="button" class="btn btn-danger">Remove</button>
+						</a>
 						<a href="/user?id={{user.id}}">
 							<button type="button" class="btn btn-primary">Modify</button>
 						</a>

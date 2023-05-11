@@ -35,25 +35,51 @@ class ProductController extends BaseController
 
     public function addTen()
     {
-        $this->model->updateStockA($_GET['id']);
-        header('Location: /products');
+
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $this->model->updateStockA($id);
+            header('Location: /products');
+        }
     }
     public function supTen()
     {
-        $this->model->updateStockS($_GET['id']);
-        header('Location: /products');
+
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $this->model->updateStockS($id);
+            header('Location: /products');
+        }
+    }
+
+    public function deleteProduct()
+    {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $this->model->productDelete($id);
+            header('Location: /products');
+        }
     }
 
     public function product()
     {
-        $product = $this->model->getOne($_GET['id']);
-        $this->render("product.html.twig", array('produit' => $product));
+        $id = $_GET['id'];
+        if (isset($id)) {
+            $product = $this->model->getOne($id);
+            $this->render("product.html.twig", array('produit' => $product));
+        }
     }
 
     public function productModify()
     {
-        $this->model->updateProduct($_POST['id'], $_POST['nom'], $_POST['quantite'], $_POST['prix']);
-        header('Location: /products');
+        if (isset($_POST['id'], $_POST['nom'], $_POST['quantite'], $_POST['prix'])  && !empty(trim($_POST['nom']))  && !empty(trim($_POST['quantite']))  && !empty(trim($_POST['prix']))) {
+            $id = $_POST['id'];
+            $nom = $_POST['nom'];
+            $quantite = $_POST['quantite'];
+            $prix = $_POST['prix'];
+            $this->model->updateProduct($id, $nom, $quantite, $prix);
+            header('Location: /products');
+        }
     }
 
     public function productNew()
@@ -63,7 +89,13 @@ class ProductController extends BaseController
 
     public function productInsert()
     {
-        $this->model->insertProduct($_POST['id'], $_POST['nom'], $_POST['quantite'], $_POST['prix']);
-        header('Location: /products');
+
+        if (isset($_POST['nom'], $_POST['quantite'], $_POST['prix'])  && !empty(trim($_POST['nom']))  && !empty(trim($_POST['quantite']))  && !empty(trim($_POST['prix']))) {
+            $nom = $_POST['nom'];
+            $quantite = $_POST['quantite'];
+            $prix = $_POST['prix'];
+            $this->model->insertProduct($nom, $quantite, $prix);
+            header('Location: /products');
+        }
     }
 }

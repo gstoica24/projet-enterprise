@@ -2,4 +2,49 @@
 {% block title %}Add User
 {% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+	<div class="box">
+		<form class="formulaire" action="/addusers/insert" method="post">
+			<input type="hidden" name="id" id="id" value="">
+			<div class="nom">
+				<label for="nom">nom</label>
+				<input type="text" name="nom" id="nom" value="">
+			</div>
+			<div class="prenom">
+				<label for="prenom">prenom</label>
+				<input type="text" name="prenom" id="prenom" value="">
+			</div>
+			<div class="solde">
+				<label for="solde">solde</label>
+				<input type="number" name="solde" id="solde" value="">
+			</div>
+			<div class="email">
+				<label for="email">email</label>
+				<input type="email" name="email" id="email" value="">
+			</div>
+			<div class="password">
+				<label for="password">password</label>
+				<input type="password" name="password" id="password" value="">
+			</div>
+			<div class="is_admin">
+				<fieldset>
+					<legend>Is Admin? :</legend>
+
+					<div class="yes">
+						<input type="radio" id="YES" name="is_admin" value="1">
+						<label for="YES">YES</label>
+					</div>
+
+
+					<div class="no">
+						<input type="radio" id="NO" name="is_admin" value="0" checked>
+						<label for="NO">NO</label>
+					</div>
+				</fieldset>
+			</div>
+			<div>
+				<input type="submit">
+			</div>
+		</form>
+	</div>
+</div>{% endblock %}

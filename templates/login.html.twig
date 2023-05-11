@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	Login
+{% endblock %}
+
+{% block content %}
+	<div class="box">
+		<form class="formulaire" action="/auth" method="post">
+			<input type="hidden" name="id" id="id" value="">
+			<div class="email">
+				<label for="email">email</label>
+				<input type="email" name="email" id="email" value="">
+			</div>
+			<div class="password">
+				<label for="password">password</label>
+				<input type="password" name="password" id="password" value="">
+			</div>
+			<div>
+				<input type="submit">
+			</div>
+		</form>
+	</div>
+</div>{% endblock %}

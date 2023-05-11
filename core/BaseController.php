@@ -9,6 +9,7 @@ class BaseController
     {
         $loader = new \Twig\Loader\FileSystemLoader('../templates');
         $this->twig = new \Twig\Environment($loader);
+        $this->twig->addGlobal('session', $_SESSION);
     }
 
     public function render($name, $context)
