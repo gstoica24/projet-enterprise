@@ -116,3 +116,8 @@ input {
 .color {
   color: black;
 }
+
+.message p {
+  color: white;
+  font-size: 30px;
+}

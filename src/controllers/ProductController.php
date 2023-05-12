@@ -8,6 +8,7 @@ use src\models\Product;
 class ProductController extends BaseController
 {
     private $model;
+    private $logModel;
 
     public function __construct()
     {
@@ -25,11 +26,16 @@ class ProductController extends BaseController
         // - - - Comment faire ?
         $products = $this->model->getAll();
 
+        //message flash pour chaque action;
+
+        $message = $_SESSION['message'];
+
+
 
         // Et on charge la vue, qui aura accès au tableau "$produits"
         // - - - Utilisez soit require() soit Twig
 
-        $this->render("products.html.twig", array('produits' => $products));
+        $this->render("products.html.twig", array('produits' => $products, 'message' => $message));
     }
 
 
@@ -39,6 +45,7 @@ class ProductController extends BaseController
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $this->model->updateStockA($id);
+            $_SESSION['message'] = 'Un produit a ete augmente de 10';
             header('Location: /products');
         }
     }
@@ -48,6 +55,7 @@ class ProductController extends BaseController
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $this->model->updateStockS($id);
+            $_SESSION['message'] = 'Un produit a ete reduit de 10';
             header('Location: /products');
         }
     }
@@ -57,6 +65,7 @@ class ProductController extends BaseController
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $this->model->productDelete($id);
+            $_SESSION['message'] = 'Un produit a ete supprime';
             header('Location: /products');
         }
     }
@@ -78,6 +87,8 @@ class ProductController extends BaseController
             $quantite = $_POST['quantite'];
             $prix = $_POST['prix'];
             $this->model->updateProduct($id, $nom, $quantite, $prix);
+            $this->logModel->insert($quantite, $prix);
+            $_SESSION['message'] = 'Le produit ' . $nom . ' a ete modifie';
             header('Location: /products');
         }
     }
@@ -95,6 +106,7 @@ class ProductController extends BaseController
             $quantite = $_POST['quantite'];
             $prix = $_POST['prix'];
             $this->model->insertProduct($nom, $quantite, $prix);
+            $_SESSION['message'] =  $nom . ' a ete ajoute dans la liste de produit';
             header('Location: /products');
         }
     }

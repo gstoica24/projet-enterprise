@@ -9,6 +9,7 @@ class UserController extends BaseController
 {
     private $model;
 
+
     public function __construct()
     {
         parent::__construct();
@@ -29,11 +30,14 @@ class UserController extends BaseController
         // - - - Comment faire ?
         $users = $this->model->getAll();
 
+        //message flash pour chaque action;
+
+        $message = $_SESSION['message'];
+
 
         // Et on charge la vue, qui aura accès au tableau "$produits"
         // - - - Utilisez soit require() soit Twig
-
-        $this->render("users.html.twig", array('users' => $users));
+        $this->render("users.html.twig", array('users' => $users, 'message' => $message));
     }
 
     public function user()
@@ -49,6 +53,7 @@ class UserController extends BaseController
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $this->model->productUser($id);
+            $_SESSION['message'] = 'Un utilisateur a ete supprime';
             header('Location: /users');
         }
     }
@@ -57,8 +62,8 @@ class UserController extends BaseController
     {
         if (isset($_POST['id'], $_POST['nom'], $_POST['prenom'], $_POST['solde'])  && !empty(trim($_POST['nom']))  && !empty(trim($_POST['prenom']))  && !empty(trim($_POST['solde']))) {
             $this->model->updateUser($_POST['id'], $_POST['nom'], $_POST['prenom'], $_POST['solde']);
-            $message = 'L \'utilisateur' . $_POST['nom'] . 'a ete modifie';
-            $this->render("users.html.twig", array('message' => $message));
+            $_SESSION['message'] = 'L \'utilisateur ' . $_POST['nom'] . ' a ete modifie';
+            header('Location: /users');
         }
     }
 
@@ -77,6 +82,7 @@ class UserController extends BaseController
             $isAdmin = $_POST['is_admin'];
             $password =  password_hash($_POST['password'], PASSWORD_DEFAULT);
             $this->model->insertUser($nom,  $prenom,  $solde, $email, $password, $isAdmin);
+            $_SESSION['message'] = 'L \'utilisateur ' . $nom . ' a ete cree';
             header('Location: /users');
         }
     }
@@ -87,6 +93,7 @@ class UserController extends BaseController
             $resultat = $this->model->checkAuth($_POST['email']);
             if (password_verify($_POST["password"], $resultat->password) && $resultat->is_admin == 1) {
                 $_SESSION['username'] = $resultat->nom;
+                $_SESSION['message'] = 'L \'utilisateur ' . $resultat->nom . ' il est connecte';
                 header("location: /users");
             } else {
                 header('Location: /login');
