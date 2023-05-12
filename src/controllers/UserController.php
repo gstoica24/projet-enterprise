@@ -4,6 +4,7 @@ namespace src\controllers;
 
 use core\BaseController;
 use src\models\User;
+use src\models\Logs;
 
 class UserController extends BaseController
 {
@@ -87,13 +88,22 @@ class UserController extends BaseController
         }
     }
 
+
+    public function logs()
+    {
+
+        $historial = $this->logModel->getAll();
+
+        $this->render("logs.html.twig", array('historial' => $historial));
+    }
+
     public function auth()
     {
         if (isset($_POST['email'], $_POST['password'])) {
             $resultat = $this->model->checkAuth($_POST['email']);
             if (password_verify($_POST["password"], $resultat->password) && $resultat->is_admin == 1) {
                 $_SESSION['username'] = $resultat->nom;
-                $_SESSION['message'] = 'L \'utilisateur ' . $resultat->nom . ' il est connecte';
+                $_SESSION['message'] = 'L \'utilisateur ' . $resultat->nom . ' est connecte';
                 header("location: /users");
             } else {
                 header('Location: /login');

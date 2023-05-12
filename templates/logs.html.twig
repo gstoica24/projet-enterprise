@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Logs
+{% endblock %}
+
+{% block content %}
+
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">produit modifie</th>
+				<th scope="col">quantite modifie</th>
+				<th scope="col">prix modifie</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{% for log in logs %}
+				<tr>
+					<th scope="row">{{logs.id}}</th>
+					<td>
+						{{logs.nom}}
+					</td>
+					<td>
+						{% if logs.quantite < 10 %}
+							<span class="colorred">{{logs.quantite}}</span>
+						{% else %}
+							<span class="color">{{logs.quantite}}</span>
+						{% endif %}
+					</td>
+					<td>
+						{{logs.prix}}€
+					</td>
+				</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+
+
+{% endblock %}

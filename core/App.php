@@ -75,6 +75,9 @@ class App
             } else if ($uri == '/logout') {
                 $ucrtl = new UserController;
                 $ucrtl->logout();
+            } else if ($uri == '/logs') {
+                $uctrl = new UserController;
+                $uctrl->logs();
             }
         } else {
 

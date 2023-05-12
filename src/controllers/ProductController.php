@@ -4,6 +4,7 @@ namespace src\controllers;
 
 use core\BaseController;
 use src\models\Product;
+use src\models\Logs;
 
 class ProductController extends BaseController
 {
@@ -87,7 +88,7 @@ class ProductController extends BaseController
             $quantite = $_POST['quantite'];
             $prix = $_POST['prix'];
             $this->model->updateProduct($id, $nom, $quantite, $prix);
-            $this->logModel->insert($quantite, $prix);
+            $this->logModel->insertProductLogs($nom, $quantite, $prix);
             $_SESSION['message'] = 'Le produit ' . $nom . ' a ete modifie';
             header('Location: /products');
         }
