@@ -19,19 +19,15 @@
 		<tbody>
 			{% for log in logs %}
 				<tr>
-					<th scope="row">{{logs.id}}</th>
+					<th scope="row">{{log.id}}</th>
 					<td>
-						{{logs.nom}}
+						{{log.content_name}}
 					</td>
 					<td>
-						{% if logs.quantite < 10 %}
-							<span class="colorred">{{logs.quantite}}</span>
-						{% else %}
-							<span class="color">{{logs.quantite}}</span>
-						{% endif %}
+						<span>{{log.content_quantity}}</span>
 					</td>
 					<td>
-						{{logs.prix}}€
+						{{log.content_price}}€
 					</td>
 				</tr>
 			{% endfor %}

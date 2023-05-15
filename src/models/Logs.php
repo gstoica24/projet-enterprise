@@ -1,6 +1,6 @@
 <?php
 
-namespace src\logModel;
+namespace src\models;
 
 use core\BaseModel;
 use PDOException;
@@ -16,7 +16,7 @@ class Logs extends BaseModel
     public function insertProductLogs($name, $quantity, $price)
     {
         try {
-            $sql = "INSERT INTO $this->table (`content-name`, `content-quantity`, `content-price`) VALUES (:nom,:quantite,:prix)";
+            $sql = "INSERT INTO $this->table (`content_name`, `content_quantity`, `content_price`) VALUES (:nom,:quantite,:prix)";
             $query = $this->_connexion->prepare($sql);
             $query->bindparam(':nom', $name);
             $query->bindparam(':quantite', $quantity);

@@ -76,8 +76,14 @@ class App
                 $ucrtl = new UserController;
                 $ucrtl->logout();
             } else if ($uri == '/logs') {
-                $uctrl = new UserController;
-                $uctrl->logs();
+                $pctrl = new ProductController;
+                $pctrl->logs();
+            } else if ($uri == '/api/products') {
+                $pctrl = new ProductController;
+                $pctrl->apiProducts();
+            } else if ($uri == '/api/products/consume' && isset($_GET['id'])) {
+                $pctrl = new ProductController;
+                $pctrl->apiProductsConsume();
             }
         } else {
 

@@ -15,6 +15,7 @@ class ProductController extends BaseController
     {
         parent::__construct();
         $this->model = new Product;
+        $this->logModel = new Logs;
     }
 
     // L'action index récupère les données du modèle et charge la vue
@@ -37,6 +38,12 @@ class ProductController extends BaseController
         // - - - Utilisez soit require() soit Twig
 
         $this->render("products.html.twig", array('produits' => $products, 'message' => $message));
+    }
+
+    public function logs()
+    {
+        $historial = $this->logModel->getAll();
+        $this->render("logs.html.twig", array('logs' => $historial));
     }
 
 
@@ -110,5 +117,14 @@ class ProductController extends BaseController
             $_SESSION['message'] =  $nom . ' a ete ajoute dans la liste de produit';
             header('Location: /products');
         }
+    }
+
+    public function apiProducts()
+    {
+        // header('Content-Type: application/json');
+        // header("Access-Control-Allow-Origin: $_SESSION['username']");
+    }
+    public function apiProductsConsume()
+    {
     }
 }

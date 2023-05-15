@@ -3,6 +3,7 @@
 namespace src\controllers;
 
 use core\BaseController;
+use src\logModel\Logs as LogModelLogs;
 use src\models\User;
 use src\models\Logs;
 
@@ -40,6 +41,8 @@ class UserController extends BaseController
         // - - - Utilisez soit require() soit Twig
         $this->render("users.html.twig", array('users' => $users, 'message' => $message));
     }
+
+
 
     public function user()
     {
@@ -89,13 +92,6 @@ class UserController extends BaseController
     }
 
 
-    public function logs()
-    {
-
-        $historial = $this->logModel->getAll();
-
-        $this->render("logs.html.twig", array('historial' => $historial));
-    }
 
     public function auth()
     {
