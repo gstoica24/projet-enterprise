@@ -53,7 +53,7 @@ class ProductController extends BaseController
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $this->model->updateStockA($id);
-            $_SESSION['message'] = 'Un produit a ete augmente de 10';
+            $_SESSION['message'] = 'Un produit a ete augmente de 10 par ' . $_SESSION['username'];
             header('Location: /products');
         }
     }
@@ -63,7 +63,7 @@ class ProductController extends BaseController
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $this->model->updateStockS($id);
-            $_SESSION['message'] = 'Un produit a ete reduit de 10';
+            $_SESSION['message'] = 'Un produit a ete reduit de 10 par ' . $_SESSION['username'];
             header('Location: /products');
         }
     }
@@ -73,7 +73,7 @@ class ProductController extends BaseController
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $this->model->productDelete($id);
-            $_SESSION['message'] = 'Un produit a ete supprime';
+            $_SESSION['message'] = 'Un produit a ete supprime par ' . $_SESSION['username'];
             header('Location: /products');
         }
     }
@@ -96,7 +96,7 @@ class ProductController extends BaseController
             $prix = $_POST['prix'];
             $this->model->updateProduct($id, $nom, $quantite, $prix);
             $this->logModel->insertProductLogs($nom, $quantite, $prix);
-            $_SESSION['message'] = 'Le produit ' . $nom . ' a ete modifie';
+            $_SESSION['message'] = 'Le produit ' . $nom . ' a ete modifie par ' . $_SESSION['username'];
             header('Location: /products');
         }
     }
@@ -114,17 +114,28 @@ class ProductController extends BaseController
             $quantite = $_POST['quantite'];
             $prix = $_POST['prix'];
             $this->model->insertProduct($nom, $quantite, $prix);
-            $_SESSION['message'] =  $nom . ' a ete ajoute dans la liste de produit';
+            $_SESSION['message'] =  $nom . ' a ete ajoute dans la liste de produit par ' . $_SESSION['username'];
             header('Location: /products');
         }
     }
 
     public function apiProducts()
     {
-        // header('Content-Type: application/json');
-        // header("Access-Control-Allow-Origin: $_SESSION['username']");
+        header('Content-Type: application/json');
+        header("Access-Control-Allow-Origin: api/products.html.twig");
+        $products = $this->model->getAll();
+        json_encode($products);
+        $this->render("api/products.html.twig", array('produit' => ""));
     }
+
+
     public function apiProductsConsume()
     {
+        $id = $_GET['id'];
+        $quantite = $_GET['quantite'];
+        if (isset($id)) {
+            $product = $this->model->BuyOne($id, $quantite);
+            $this->render("api/products.html.twig", array('produit' => $product));
+        }
     }
 }

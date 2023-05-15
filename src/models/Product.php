@@ -80,4 +80,18 @@ class Product extends BaseModel
             echo "Erreur de connexion : " . $exception->getMessage();
         }
     }
+
+
+    public function buyOne($id, $quantity)
+    {
+        try {
+            $sql = "UPDATE $this->table SET  quantite = :quantite WHERE id= $id";
+            $query = $this->_connexion->prepare($sql);
+            $query->bindparam(':quantite', $quantity);
+            $query->execute();
+            return ($query->rowcount() > 0);
+        } catch (PDOException $exception) {
+            echo "Erreur de connexion : " . $exception->getMessage();
+        }
+    }
 }

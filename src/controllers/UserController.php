@@ -57,7 +57,7 @@ class UserController extends BaseController
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             $this->model->productUser($id);
-            $_SESSION['message'] = 'Un utilisateur a ete supprime';
+            $_SESSION['message'] = 'Un utilisateur a ete supprime par ' . $_SESSION['username'];
             header('Location: /users');
         }
     }
@@ -66,7 +66,7 @@ class UserController extends BaseController
     {
         if (isset($_POST['id'], $_POST['nom'], $_POST['prenom'], $_POST['solde'])  && !empty(trim($_POST['nom']))  && !empty(trim($_POST['prenom']))  && !empty(trim($_POST['solde']))) {
             $this->model->updateUser($_POST['id'], $_POST['nom'], $_POST['prenom'], $_POST['solde']);
-            $_SESSION['message'] = 'L \'utilisateur ' . $_POST['nom'] . ' a ete modifie';
+            $_SESSION['message'] = 'L \'utilisateur ' . $_POST['nom'] . ' a ete modifie par ' . $_SESSION['username'];
             header('Location: /users');
         }
     }
@@ -86,7 +86,7 @@ class UserController extends BaseController
             $isAdmin = $_POST['is_admin'];
             $password =  password_hash($_POST['password'], PASSWORD_DEFAULT);
             $this->model->insertUser($nom,  $prenom,  $solde, $email, $password, $isAdmin);
-            $_SESSION['message'] = 'L \'utilisateur ' . $nom . ' a ete cree';
+            $_SESSION['message'] = 'L \'utilisateur ' . $nom . ' a ete cree par ' . $_SESSION['username'];
             header('Location: /users');
         }
     }
