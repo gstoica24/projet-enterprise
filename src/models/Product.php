@@ -82,12 +82,11 @@ class Product extends BaseModel
     }
 
 
-    public function buyOne($id, $quantity)
+    public function buyOne($id)
     {
         try {
-            $sql = "UPDATE $this->table SET  quantite = :quantite WHERE id= $id";
+            $sql = "UPDATE $this->table SET  quantite = quantite - 1 WHERE id= $id";
             $query = $this->_connexion->prepare($sql);
-            $query->bindparam(':quantite', $quantity);
             $query->execute();
             return ($query->rowcount() > 0);
         } catch (PDOException $exception) {

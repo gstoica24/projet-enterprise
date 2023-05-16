@@ -124,18 +124,21 @@ class ProductController extends BaseController
         header('Content-Type: application/json');
         header("Access-Control-Allow-Origin: api/products.html.twig");
         $products = $this->model->getAll();
-        json_encode($products);
-        $this->render("api/products.html.twig", array('produit' => ""));
+        echo json_encode($products);
+
+        // $this->render("api/products.html.twig", array('produit' => ""));
     }
 
 
     public function apiProductsConsume()
     {
         $id = $_GET['id'];
-        $quantite = $_GET['quantite'];
+
         if (isset($id)) {
-            $product = $this->model->BuyOne($id, $quantite);
-            $this->render("api/products.html.twig", array('produit' => $product));
+            $b = $this->model->buyOne($id);
+            $product = $this->model->getOne($id);
+            echo json_encode($product);
+            // $this->render("api/products.html.twig", array('produit' => $product));
         }
     }
 }

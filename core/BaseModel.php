@@ -39,7 +39,7 @@ class BaseModel
         $sql = "SELECT * FROM " . $this->table . " WHERE id=" . $id;
         $query = $this->_connexion->prepare($sql);
         $query->execute();
-        return $query->fetch();
+        return $query->fetch(PDO::FETCH_ASSOC);
     }
 
 
@@ -48,6 +48,6 @@ class BaseModel
         $sql = "SELECT * FROM " . $this->table;
         $query = $this->_connexion->prepare($sql);
         $query->execute();
-        return $query->fetchAll();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 }
