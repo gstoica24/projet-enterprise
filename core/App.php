@@ -20,7 +20,13 @@ class App
 
 
         $uri = strtok($_SERVER['REQUEST_URI'], '?');
-
+        if ($uri == '/api/products') {
+            $pctrl = new ProductController;
+            $pctrl->apiProducts();
+        } else if ($uri == '/api/products/consume' && isset($_GET['id'])) {
+            $pctrl = new ProductController;
+            $pctrl->apiProductsConsume();
+        }
         if (isset($_SESSION['username'])) {
             if ($uri == '/') {
                 $nctrl = new UserController;
@@ -78,12 +84,6 @@ class App
             } else if ($uri == '/logs') {
                 $pctrl = new ProductController;
                 $pctrl->logs();
-            } else if ($uri == '/api/products') {
-                $pctrl = new ProductController;
-                $pctrl->apiProducts();
-            } else if ($uri == '/api/products/consume' && isset($_GET['id'])) {
-                $pctrl = new ProductController;
-                $pctrl->apiProductsConsume();
             }
         } else {
 

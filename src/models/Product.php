@@ -84,8 +84,9 @@ class Product extends BaseModel
 
     public function buyOne($id)
     {
+
         try {
-            $sql = "UPDATE $this->table SET  quantite = quantite - 1 WHERE id= $id";
+            $sql = "UPDATE $this->table SET  quantite = quantite - 1 WHERE id= $id AND quantite > 0";
             $query = $this->_connexion->prepare($sql);
             $query->execute();
             return ($query->rowcount() > 0);
